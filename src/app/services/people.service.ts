@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class PeopleService {
       'SOAPAction': 'http://tempuri.org/SOAP.Demo.FindPerson'
     });
     const body = this.createXMLBody(userId);
-    this.http.post('/api/csp/samples/SOAP.Demo.cls', body, { headers, responseType: 'text'}).subscribe((xmlResponse) => {
+
+    this.http.post(`${environment.apiBase}/csp/samples/SOAP.Demo.cls`, body, { headers, responseType: 'text'}).subscribe((xmlResponse) => {
       this._resultAsXML = xmlResponse;
       console.log('**** result as XMLS', this.resultAsXML);
       this._resultAsJson = this.parseXmlToJson(xmlResponse);

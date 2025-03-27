@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "soap-example": {
+    "soap-angular-example": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -52,7 +52,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -61,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "soap-example:build:production"
+              "browserTarget": "soap-angular-example:build:production"
             },
             "development": {
-              "browserTarget": "soap-example:build:development"
+              "browserTarget": "soap-angular-example:build:development"
             }
           },
           "defaultConfiguration": "development",
@@ -75,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "soap-example:build"
+            "browserTarget": "soap-angular-example:build"
           }
         },
         "test": {
