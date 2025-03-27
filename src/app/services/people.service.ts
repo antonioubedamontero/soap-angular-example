@@ -2,17 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const baseUrl = 'https://www.crcind.com:443';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PeopleService {
-  resultAsXML: string;
-  resultAsJson: any;
-  
-  constructor(private http: HttpClient) { 
-    this.resultAsXML = '';
+  _resultAsXML: string;
+  _resultAsJson: any;
+
+  constructor(private http: HttpClient) {
+    this._resultAsXML = '';
   }
 
   getUser(userId: string) {
@@ -21,10 +19,10 @@ export class PeopleService {
       'SOAPAction': 'http://tempuri.org/SOAP.Demo.FindPerson'
     });
     const body = this.createXMLBody(userId);
-    this.http.post(`${baseUrl}/csp/samples/SOAP.Demo.cls`, body, { headers, responseType: 'text'}).subscribe((xmlResponse) => {
-      this.resultAsXML = xmlResponse;
+    this.http.post('/api/csp/samples/SOAP.Demo.cls', body, { headers, responseType: 'text'}).subscribe((xmlResponse) => {
+      this._resultAsXML = xmlResponse;
       console.log('**** result as XMLS', this.resultAsXML);
-      this.resultAsJson = this.parseXmlToJson(xmlResponse);
+      this._resultAsJson = this.parseXmlToJson(xmlResponse);
       console.log('**** result as JSON', this.resultAsJson);
     });
   }
@@ -48,5 +46,13 @@ export class PeopleService {
         json[key] = ((value && Object.keys(value).length) ? value : res[2]) || null;
     }
     return json;
+  }
+
+  get resultAsXML(): string {
+    return this._resultAsXML;
+  }
+
+  get resultAsJson(): string {
+    return this._resultAsJson;
   }
 }

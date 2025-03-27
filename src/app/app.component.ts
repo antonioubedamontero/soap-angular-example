@@ -7,9 +7,7 @@ import { PeopleService } from './services/people.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'soap-example';
-
-  constructor(private peopleService: PeopleService) {}
+  constructor(public peopleService: PeopleService) {}
 
   ngOnInit(): void {
     this.peopleService.getUser('1');
